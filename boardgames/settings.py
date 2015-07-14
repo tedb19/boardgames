@@ -24,6 +24,7 @@ DJANGO_APPS = (
 
 PROJECT_APPS = (
     'main',
+    'user_account',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS

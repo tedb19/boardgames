@@ -9,6 +9,10 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url(r'^admin/', include(admin.site.urls)),
+    # notice that when we are including the url, we use a regex that says
+    # if it starts with user, then we include the user_account urls,
+    # i.e. we dont add the $ at the end
+    url(r'^user/', include('user_account.urls')),
     url(r'^$', 'main.views.home', name='boardgames_home'),
 
 )

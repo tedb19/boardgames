@@ -1,17 +1,28 @@
 from django.conf.urls import patterns, include, url
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'boardgames.views.home', name='home'),
-    # url(r'^boardgames/', include('boardgames.foo.urls')),
+# in the templates, or anywhere else, be sure to use the url name,
+# and not the actual url, so that in future you have the flexibility to change
+# the url mapping in only one place
+urlpatterns = patterns(
+    '',
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', 'main.views.home', name='boardgames_home'),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+)
 
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+
+# add patterns with the django.contrib.auth.views prefix
+urlpatterns += patterns(
+    'django.contrib.auth.views',
+
+    url(r'^login/$', 'login',
+        {'template_name': 'login.html'},
+        name='boardgames_login'),
+
+    url(r'^logout/$', 'logout',
+        {'next_page': 'boardgames_home'},
+        name='boardgames_logout'),
 )
